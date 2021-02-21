@@ -1,0 +1,11 @@
+[package]
+name = "b64converter"
+version = "0.1.0"
+authors = ["Anders J. Andersen <andersj.andersen@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fltk = "^0.15"
+base64 = "^0.13"
