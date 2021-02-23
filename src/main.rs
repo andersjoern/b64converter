@@ -27,14 +27,17 @@ fn main() {
 
     button_decode.set_callback(Box::new(move || {
         let text_base64 = base64_text.value();
-        let decoded_text = match decode(text_base64) {
-            Ok(dc) => String::from_utf8(dc).unwrap(),
+        match decode(text_base64) {
+            Ok(dc) => {
+                match String::from_utf8(dc) {
+                    Ok(s) => normal_text.set_value(&s),
+                    Err(e) => {message(100, 100, ("Error: ".to_string() + &e.to_string()).as_str());}
+                }
+            },
             Err(e) => {                
                 message(100, 100, ("Error: ".to_string() + &e.to_string()).as_str()); 
-                "".to_string()
             }
         };
-        normal_text.set_value(&decoded_text);
     }));
 
     app.run().unwrap();
