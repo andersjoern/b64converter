@@ -31,12 +31,10 @@ fn main() {
             Ok(dc) => {
                 match String::from_utf8(dc) {
                     Ok(s) => normal_text.set_value(&s),
-                    Err(e) => {alert_default(("Error: ".to_string() + &e.to_string()).as_str());}
+                    Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
                 }
             },
-            Err(e) => {                
-                alert_default(("Error: ".to_string() + &e.to_string()).as_str()); 
-            }
+            Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
         };
     }));
 
