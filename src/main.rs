@@ -2,7 +2,7 @@ use fltk::{app::*, button::*, text::*, window::*, input::*, dialog::*};
 use base64::{encode, decode};
 
 fn main() {
-    let app = App::default().with_scheme(AppScheme::Gtk);
+    let app = App::default().with_scheme(AppScheme::Base);
     let mut wind = Window::default()
         .with_size(600, 380)
         .center_screen()
