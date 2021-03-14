@@ -20,12 +20,12 @@ fn main() {
 
     let work_normal_text = normal_text.clone();
     let work_base64_text = base64_text.clone();
-    button_encode.set_callback(Box::new(move || {
+    button_encode.set_callback(move || {
         let text_normal = work_normal_text.value();
         work_base64_text.set_value(&encode(text_normal));
-    }));
+    });
 
-    button_decode.set_callback(Box::new(move || {
+    button_decode.set_callback(move || {
         let text_base64 = base64_text.value();
         match decode(text_base64) {
             Ok(dc) => {
@@ -36,7 +36,7 @@ fn main() {
             },
             Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
         };
-    }));
+    });
 
     app.run().unwrap();
 }
