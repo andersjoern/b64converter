@@ -1,5 +1,5 @@
-use fltk::{app::*, button::*, text::*, window::*, input::*, dialog::*};
-use base64::{encode, decode};
+use base64::{decode, encode};
+use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*};
 
 fn main() {
     let app = App::default().with_scheme(AppScheme::Base);
@@ -28,13 +28,19 @@ fn main() {
     button_decode.set_callback(move || {
         let text_base64 = base64_text.value();
         match decode(text_base64) {
-            Ok(dc) => {
-                match String::from_utf8(dc) {
-                    Ok(s) => normal_text.set_value(&s),
-                    Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
-                }
+            Ok(dc) => match String::from_utf8(dc) {
+                Ok(s) => normal_text.set_value(&s),
+                Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
             },
-            Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
+            Err(e) => match e {
+                base64::DecodeError::InvalidByte(pos, b) => {
+                    alert_default(&format!("Invalid byte {} at position: {}", b, pos))
+                }
+                base64::DecodeError::InvalidLastSymbol(pos, s) => {
+                    alert_default(&format!("Invalid last symbol {} at pos: {}", s, pos))
+                }
+                base64::DecodeError::InvalidLength => alert_default("Invalid length"),
+            },
         };
     });
 
