@@ -1,4 +1,4 @@
-use base64::{decode, encode};
+use base64::{decode, encode, DecodeError};
 use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*};
 
 fn main() {
@@ -33,13 +33,13 @@ fn main() {
                 Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
             },
             Err(e) => match e {
-                base64::DecodeError::InvalidByte(pos, b) => {
+                DecodeError::InvalidByte(pos, b) => {
                     alert_default(&format!("Invalid byte {} at position: {}", b, pos))
                 }
-                base64::DecodeError::InvalidLastSymbol(pos, s) => {
+                DecodeError::InvalidLastSymbol(pos, s) => {
                     alert_default(&format!("Invalid last symbol {} at pos: {}", s, pos))
                 }
-                base64::DecodeError::InvalidLength => alert_default("Invalid length"),
+                DecodeError::InvalidLength => alert_default("Invalid length"),
             },
         };
     });
