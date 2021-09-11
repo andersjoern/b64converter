@@ -1,5 +1,5 @@
 use base64::{decode, encode, DecodeError};
-use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*};
+use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*, prelude::*};
 
 fn main() {
     let app = App::default().with_scheme(AppScheme::Base);
@@ -8,7 +8,7 @@ fn main() {
         .center_screen()
         .with_label("Encode - Decode Base64 strings");
     let _ = TextDisplay::new(10, 40, 580, 40, "Normal text");
-    let normal_text = MultilineInput::new(10, 40, 580, 100, "");
+    let mut normal_text = MultilineInput::new(10, 40, 580, 100, "");
     let _ = TextDisplay::new(10, 180, 580, 40, "Base64 text");
     let base64_text = MultilineInput::new(10, 180, 580, 100, "");
 
@@ -19,13 +19,13 @@ fn main() {
     wind.show();
 
     let work_normal_text = normal_text.clone();
-    let work_base64_text = base64_text.clone();
-    button_encode.set_callback(move || {
+    let mut work_base64_text = base64_text.clone();
+    button_encode.set_callback(move |_| {
         let text_normal = work_normal_text.value();
         work_base64_text.set_value(&encode(text_normal));
     });
 
-    button_decode.set_callback(move || {
+    button_decode.set_callback(move |_| {
         let text_base64 = base64_text.value();
         match decode(text_base64) {
             Ok(dc) => match String::from_utf8(dc) {
