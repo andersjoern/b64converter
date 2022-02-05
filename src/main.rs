@@ -34,10 +34,10 @@ fn main() {
             },
             Err(e) => match e {
                 DecodeError::InvalidByte(pos, b) => {
-                    alert_default(&format!("Invalid byte {} at position: {}", b, pos))
+                    alert_default(&format!("Invalid byte {b} at position: {pos}"))
                 }
                 DecodeError::InvalidLastSymbol(pos, s) => {
-                    alert_default(&format!("Invalid last symbol {} at pos: {}", s, pos))
+                    alert_default(&format!("Invalid last symbol {s} at pos: {pos}"))
                 }
                 DecodeError::InvalidLength => alert_default("Invalid length"),
             },
