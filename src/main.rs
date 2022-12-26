@@ -40,6 +40,7 @@ fn main() {
                     alert_default(&format!("Invalid last symbol {s} at pos: {pos}"))
                 }
                 DecodeError::InvalidLength => alert_default("Invalid length"),
+                DecodeError::InvalidPadding => alert_default("Invalid padding"),
             },
         };
     });
