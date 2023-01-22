@@ -1,4 +1,4 @@
-use base64::{decode, encode, DecodeError};
+use base64::{DecodeError, Engine, engine::general_purpose};
 use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*, prelude::*};
 
 fn main() {
@@ -22,12 +22,12 @@ fn main() {
     let mut work_base64_text = base64_text.clone();
     button_encode.set_callback(move |_| {
         let text_normal = work_normal_text.value();
-        work_base64_text.set_value(&encode(text_normal));
+        work_base64_text.set_value(&general_purpose::STANDARD.encode(text_normal));
     });
 
     button_decode.set_callback(move |_| {
         let text_base64 = base64_text.value();
-        match decode(text_base64) {
+        match general_purpose::STANDARD.decode(text_base64) {
             Ok(dc) => match String::from_utf8(dc) {
                 Ok(s) => normal_text.set_value(&s),
                 Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
