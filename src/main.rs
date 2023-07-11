@@ -1,7 +1,7 @@
 use base64::{DecodeError, Engine, engine::general_purpose};
 use fltk::{app::*, button::*, dialog::*, input::*, text::*, window::*, prelude::*};
 
-fn main() {
+fn main() -> Result<(), FltkError> {
     let app = App::default().with_scheme(AppScheme::Base);
     let mut wind = Window::default()
         .with_size(600, 380)
@@ -45,5 +45,6 @@ fn main() {
         };
     });
 
-    app.run().unwrap();
+    app.run()?;
+    Ok(())
 }
