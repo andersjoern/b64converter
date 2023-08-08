@@ -6,7 +6,7 @@ fn main() -> Result<(), FltkError> {
     let mut wind = Window::default()
         .with_size(600, 380)
         .center_screen()
-        .with_label("Encode - Decode Base64 strings");
+        .with_label("Encode - Decode Base64 text");
     let _ = TextDisplay::new(10, 40, 580, 40, "Normal text");
     let mut normal_text = MultilineInput::new(10, 40, 580, 100, "");
     let _ = TextDisplay::new(10, 180, 580, 40, "Base64 text");
