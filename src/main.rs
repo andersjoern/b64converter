@@ -1,5 +1,6 @@
 use base64::{DecodeError, Engine, engine::general_purpose};
-use fltk::{button::*, dialog::*, input::*, text::*, window::*, prelude::*};
+use fltk::{button::*, input::*, text::*, window::*, prelude::*};
+use tinyfiledialogs as tfd;
 
 fn main() -> Result<(), FltkError> {
     let app = fltk::app::App::default().with_scheme(fltk::app::AppScheme::Base);
@@ -30,17 +31,17 @@ fn main() -> Result<(), FltkError> {
         match general_purpose::STANDARD.decode(text_base64) {
             Ok(dc) => match String::from_utf8(dc) {
                 Ok(s) => normal_text.set_value(&s),
-                Err(e) => alert_default(("Error: ".to_string() + &e.to_string()).as_str()),
+                Err(e) => tfd::message_box_ok("Error", &e.to_string(), tfd::MessageBoxIcon::Error),
             },
             Err(e) => match e {
                 DecodeError::InvalidByte(pos, b) => {
-                    alert_default(&format!("Invalid byte {b} at position: {pos}"))
+                    tfd::message_box_ok("Error", &format!("Invalid byte {b} at position: {pos}"), tfd::MessageBoxIcon::Error);
                 }
                 DecodeError::InvalidLastSymbol(pos, s) => {
-                    alert_default(&format!("Invalid last symbol {s} at pos: {pos}"))
+                    tfd::message_box_ok("Error", &format!("Invalid last symbol {s} at pos: {pos}"), tfd::MessageBoxIcon::Error);
                 }
-                DecodeError::InvalidLength => alert_default("Invalid length"),
-                DecodeError::InvalidPadding => alert_default("Invalid padding"),
+                DecodeError::InvalidLength => tfd::message_box_ok("Error","Invalid length", tfd::MessageBoxIcon::Error),
+                DecodeError::InvalidPadding => tfd::message_box_ok("Error", "Invalid padding", tfd::MessageBoxIcon::Error),
             },
         };
     });
