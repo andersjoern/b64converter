@@ -35,10 +35,12 @@ fn main() -> Result<(), FltkError> {
             },
             Err(e) => match e {
                 DecodeError::InvalidByte(pos, b) => {
-                    tfd::message_box_ok("Error", &format!("Invalid byte {b} at position: {pos}"), tfd::MessageBoxIcon::Error);
+                    let c = b as char;
+                    tfd::message_box_ok("Error", &format!("Invalid byte {c} at position: {pos}"), tfd::MessageBoxIcon::Error);
                 }
                 DecodeError::InvalidLastSymbol(pos, s) => {
-                    tfd::message_box_ok("Error", &format!("Invalid last symbol {s} at pos: {pos}"), tfd::MessageBoxIcon::Error);
+                    let c = s as char;
+                    tfd::message_box_ok("Error", &format!("Invalid last symbol {c} at pos: {pos}"), tfd::MessageBoxIcon::Error);
                 }
                 DecodeError::InvalidLength(len) => tfd::message_box_ok("Error",&format!("Invalid length: {len}"), tfd::MessageBoxIcon::Error),
                 DecodeError::InvalidPadding => tfd::message_box_ok("Error", "Invalid padding", tfd::MessageBoxIcon::Error),
