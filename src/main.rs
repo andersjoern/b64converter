@@ -40,7 +40,7 @@ fn main() -> Result<(), FltkError> {
                 DecodeError::InvalidLastSymbol(pos, s) => {
                     tfd::message_box_ok("Error", &format!("Invalid last symbol {s} at pos: {pos}"), tfd::MessageBoxIcon::Error);
                 }
-                DecodeError::InvalidLength => tfd::message_box_ok("Error","Invalid length", tfd::MessageBoxIcon::Error),
+                DecodeError::InvalidLength(len) => tfd::message_box_ok("Error",&format!("Invalid length: {len}"), tfd::MessageBoxIcon::Error),
                 DecodeError::InvalidPadding => tfd::message_box_ok("Error", "Invalid padding", tfd::MessageBoxIcon::Error),
             },
         };
