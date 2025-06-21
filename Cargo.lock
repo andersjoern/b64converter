@@ -4,7 +4,7 @@ version = 4
 
 [[package]]
 name = "b64converter"
-version = "1.3.8"
+version = "1.3.9"
 dependencies = [
  "base64",
  "fltk",
@@ -74,9 +74,9 @@ dependencies = [
 
 [[package]]
 name = "fltk"
-version = "1.5.5"
+version = "1.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "63827b17d535827c9cdc922d6d8e0b6068084ae9d5072a4be139442012a8e6a2"
+checksum = "ecfe1d97c0be7585b46d52c1e563226a6495a993be2c72dcdd03fe79d29b1f2a"
 dependencies = [
  "bitflags",
  "crossbeam-channel",
@@ -88,9 +88,9 @@ dependencies = [
 
 [[package]]
 name = "fltk-sys"
-version = "1.5.5"
+version = "1.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b27145d51dae768b5263277382d584a3752ffa3423dab877754266c9c080e08d"
+checksum = "de39f27a66d3ceefca611ee2db890369c6846fde4de7b5fd7cdedd9ce0c432f8"
 dependencies = [
  "cmake",
  "cmk",
