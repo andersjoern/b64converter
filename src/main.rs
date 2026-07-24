@@ -1,5 +1,5 @@
 use base64::{DecodeError, Engine, engine::general_purpose};
-use fltk::{button::*, input::*, text::*, window::*, prelude::*};
+use fltk::{button::*, input::*, prelude::*, text::*, window::*};
 use tinyfiledialogs as tfd;
 
 fn main() -> Result<(), FltkError> {
@@ -36,14 +36,28 @@ fn main() -> Result<(), FltkError> {
             Err(e) => match e {
                 DecodeError::InvalidByte(pos, b) => {
                     let c = b as char;
-                    tfd::message_box_ok("Error", &format!("Invalid byte {c} at position: {pos}"), tfd::MessageBoxIcon::Error);
+                    tfd::message_box_ok(
+                        "Error",
+                        &format!("Invalid byte {c} at position: {pos}"),
+                        tfd::MessageBoxIcon::Error,
+                    );
                 }
-                DecodeError::InvalidLastSymbol(pos, s) => {
-                    let c = s as char;
-                    tfd::message_box_ok("Error", &format!("Invalid last symbol {c} at pos: {pos}"), tfd::MessageBoxIcon::Error);
+                DecodeError::InvalidLastSymbol { offset, symbol, .. } => {
+                    let c = symbol as char;
+                    tfd::message_box_ok(
+                        "Error",
+                        &format!("Invalid last symbol {c} at pos: {offset}"),
+                        tfd::MessageBoxIcon::Error,
+                    );
                 }
-                DecodeError::InvalidLength(len) => tfd::message_box_ok("Error",&format!("Invalid length: {len}"), tfd::MessageBoxIcon::Error),
-                DecodeError::InvalidPadding => tfd::message_box_ok("Error", "Invalid padding", tfd::MessageBoxIcon::Error),
+                DecodeError::InvalidLength(len) => tfd::message_box_ok(
+                    "Error",
+                    &format!("Invalid length: {len}"),
+                    tfd::MessageBoxIcon::Error,
+                ),
+                DecodeError::InvalidPadding => {
+                    tfd::message_box_ok("Error", "Invalid padding", tfd::MessageBoxIcon::Error)
+                }
             },
         };
     });
