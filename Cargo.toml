@@ -1,6 +1,6 @@
 [package]
 name = "b64converter"
-version = "1.4.0"
+version = "1.4.1"
 authors = ["Anders J. Andersen <andersj.andersen@gmail.com>"]
 edition = "2024"
 
@@ -8,7 +8,7 @@ edition = "2024"
 
 [dependencies]
 fltk = "1.5.23"
-base64 = "0.23.0"
+base64 = "0.23.1"
 tinyfiledialogs = "3.9.1"
 
 [profile.release]
